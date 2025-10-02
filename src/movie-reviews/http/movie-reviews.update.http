@@ -1,0 +1,19 @@
+### login
+# @name u105
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "u105",
+    "password": "changeit"
+}
+
+### case: update success
+# @ref u105
+PATCH http://localhost:3000/api/v1/movie-reviews/5
+Authorization: Bearer {{u105.accessToken}}
+Content-Type: application/json
+
+{
+  "year": "2015"
+}

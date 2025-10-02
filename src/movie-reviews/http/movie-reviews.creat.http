@@ -1,0 +1,25 @@
+### auth login
+# @name u105
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "u105",
+    "password": "changeit"
+}
+
+### create success
+# @ref u105
+POST http://localhost:3000/api/v1/movie-reviews
+Authorization: Bearer {{u105.accessToken}}
+Content-Type: application/json
+
+ {
+    "name": "Sushi Chef",
+    "year": "2019",
+    "description": "Charming and heartwarming documentary about food culture and passion.",
+    "rating": {
+        "id" : 3
+    }
+    
+  }

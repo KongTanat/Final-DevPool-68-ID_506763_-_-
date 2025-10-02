@@ -1,0 +1,32 @@
+### auth login
+# @name u105
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "u105",
+    "password": "changeit"
+}
+
+### create success
+# @ref u105
+# @name movieReviewsCreated
+POST http://localhost:3000/api/v1/movie-reviews
+Authorization: Bearer {{u105.accessToken}}
+Content-Type: application/json
+
+{
+    "name": "The Quiet Librarian",
+    "year": "2024",
+    "description": "Slow-burn mystery with a surprising twist. Excellent performance by the lead actress.",
+    "rating": {
+        "id" : 5
+    }   
+  }
+
+### delete
+# @ref u105
+# @ref movieReviewsCreated
+DELETE http://localhost:3000/api/v1/movie-reviews/{{movieReviewsCreated.id}}
+Authorization: Bearer {{u105.accessToken}}
+Content-Type: application/json

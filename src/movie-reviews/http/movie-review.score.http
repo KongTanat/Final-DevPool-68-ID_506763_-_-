@@ -1,0 +1,45 @@
+  // food-recipes.rating.http
+  ### u104 login
+  # @name u104
+  POST http://localhost:3000/api/v1/auth/login
+  Content-Type: application/json
+  
+  {
+      "username": "u104",
+      "password": "changeit"
+  }
+  
+  ### case: u104 score
+  # @ref u104
+  PUT  http://localhost:3000/api/v1/movie-reviews/9/score
+  Authorization: Bearer {{u104.accessToken}}
+  Content-Type: application/json
+  
+  {
+    "score": 3
+  }
+  
+  
+  ### u105 login
+  # @name u105
+  POST http://localhost:3000/api/v1/auth/login
+  Content-Type: application/json
+  
+  {
+      "username": "u105",
+      "password": "changeit"
+  }
+  
+  ### case: u105 score
+  # @ref u105
+  PUT  http://localhost:3000/api/v1/movie-reviews/9/score
+  Authorization: Bearer {{u105.accessToken}}
+  Content-Type: application/json
+  
+  {
+    "score": 3
+  }
+  
+  
+  ### case: view food-recipes 9
+  GET  http://localhost:3000/api/v1/movie-reviews/9

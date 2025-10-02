@@ -1,0 +1,14 @@
+// food-recipes.search.http
+### case: limit page sort
+GET http://localhost:3000/api/v1/movie-reviews?limit=3&page=1&sortBy=name
+Content-Type: application/json
+
+
+# ### case: search
+GET http://localhost:3000/api/v1/movie-reviews?limit=3&page=1&sortBy=name&search=5
+Content-Type: application/json
+
+
+# ### case: get
+GET http://localhost:3000/api/v1/movie-reviews/6
+Content-Type: application/json

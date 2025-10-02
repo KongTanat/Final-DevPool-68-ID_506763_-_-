@@ -1,0 +1,26 @@
+### case: login success
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "u105",
+    "password": "changeit"
+}
+
+### case: not found username
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "NOT_FOUND",
+    "password": "changeit"
+}
+
+### case: wrong password
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "u105",
+    "password": "WRONG_PASS"
+}

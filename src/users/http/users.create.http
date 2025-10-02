@@ -1,0 +1,51 @@
+// users.create.http
+
+### case: u101
+POST /users
+Content-Type: application/json
+
+{
+    "username": "u101",
+    "password": "changeit",
+    "role": "USER"
+}
+
+### case: u102
+POST /users
+Content-Type: application/json
+
+{
+    "username": "u102",
+    "password": "changeit",
+    "role": "USER"
+}
+
+### case: u103
+POST /users
+Content-Type: application/json
+
+{
+    "username": "u103",
+    "password": "changeit",
+    "role": "USER"
+}
+
+### case: u104
+POST /users
+Content-Type: application/json
+
+{
+    "username": "u104",
+    "password": "changeit",
+    "role": "USER"
+}
+
+### case: u105
+POST /users
+Content-Type: application/json
+
+{
+    "username": "u105",
+    "password": "changeit",
+    "role": "USER"
+}

@@ -1,0 +1,14 @@
+### case: login
+# @name u104
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+{
+  "username": "u104",
+  "password": "changeit"
+}
+
+### case: valid token
+# @ref u104
+GET http://localhost:3000/api/v1/users/me
+Authorization: Bearer {{u105.accessToken}}
+
