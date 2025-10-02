@@ -20,7 +20,7 @@ export class KeycloakService {
     private usersService: UsersService,
     private authService: AuthService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async getConfig() {
 
@@ -29,8 +29,8 @@ export class KeycloakService {
     }
 
     const server = new URL(this.keycloakConfig.issuer);
-    const clientId= this.keycloakConfig.clientId;
-    const clientSecret= this.keycloakConfig.clientSecret;
+    const clientId = this.keycloakConfig.clientId;
+    const clientSecret = this.keycloakConfig.clientSecret;
 
     this.config = await client.discovery(server, clientId, clientSecret);
 
@@ -71,7 +71,7 @@ export class KeycloakService {
 
     // get idToken & keycloakPayload
     const { idToken, keycloakPayload } = await this.authorizationByCode(keycloakParamDto);
-    console.log(`[KeycloakService] Received payload for user: ${keycloakPayload.preferred_username}`); 
+    console.log(`[KeycloakService] Received payload for user: ${keycloakPayload.preferred_username}`);
 
     // upsert user by keycloak id
     const user: User = await this.usersService.upsertByKeycloakId(
@@ -88,6 +88,10 @@ export class KeycloakService {
 
     // generateTokens
     const tokensDto = this.authService.generateToken(loggedInDto);
+    console.log('--- GENERATED TOKENS ---');
+    console.log('Access Token:', tokensDto.accessToken);
+    console.log('Refresh Token:', tokensDto.refreshToken);
+    console.log('------------------------');
 
     return { idToken, tokensDto };
   }
