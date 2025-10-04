@@ -2,7 +2,7 @@ import { createZodDto } from 'nestjs-zod';
 import z from 'zod';
 
 
-
+//validation
 const scoreDtoSchema = z.object({
   score: z
     .number()

@@ -16,7 +16,7 @@ export class User {
     username: string;
 
     @Column({
-        nullable: true  //กรณีไมจำ password ไม่เปลี่ยน database ไม่สร้าง
+        nullable: true  //สามารถเป็นค่าว่างได้ เนื่องจาก hashpassword
     })
     password: string;
 

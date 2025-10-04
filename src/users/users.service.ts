@@ -7,10 +7,10 @@ import { User } from './entities/user.entity';
 import bcrypt from 'bcrypt'
 
 
-@Injectable()
+@Injectable() //เพื่อทำให้ service สามารถ injectable ที่ controller ได้
 export class UsersService {
 
-  constructor(@InjectRepository(User) private readonly repository: Repository<User>) { }
+  constructor(@InjectRepository(User) private readonly repository: Repository<User>) { }  //private เข้าได้แค่ใน class นี้ readonly ไม่ถูกเปลี่ยนแปลงหลัง constructor ทำงานเสร็จ เช่นถ้า create ผิดพลาด findusername จะยังทำได้ต่อ
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10) // 10 จำนวนการสุ่มรหัส 
@@ -23,20 +23,20 @@ export class UsersService {
   }
 
   async findByUsername(username: string) {
-    return this.repository.findOneByOrFail({ username })
+    return this.repository.findOneByOrFail({ username }) //ถ้า false จะ undefine or null
 
   }
 
-  async upsertByKeycloakId(username: string, keycloakId: string): Promise<User> {
-    const result = await this.repository.upsert(
-      { username, keycloakId },
+  async upsertByKeycloakId(username: string, keycloakId: string): Promise<User> { //เพิ่มข้อมูล  user keycloak ในฐานข้อมูล
+    const result = await this.repository.upsert(  //update or insert 
+      { username, keycloakId }, //ข้อมูลที่ต้ิงการบันทึก
       {
-        conflictPaths: ['keycloakId'],
+        conflictPaths: ['keycloakId'], // ถ้าเจอ keyclockid ซ้ำให้ update  ถ้าไม่ซ้ำให้ insert
       },
     );
     console.log('upset', result);
 
-    return this.repository.findOneByOrFail({ keycloakId });
+    return this.repository.findOneByOrFail({ keycloakId }); //fail จาการเชื่อมต่อ
   }
 
 }

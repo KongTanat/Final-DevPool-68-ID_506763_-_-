@@ -4,7 +4,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { LoggedInDto } from '../dto/logged-in.dto';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy) { // ตรวจสอบacresstoken
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Strategy จะไปค้นหา Token ใน Authorization Header ในรูปแบบ Bearer <token>
@@ -13,7 +13,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   validate(user: LoggedInDto): LoggedInDto {
-    // not special validate just jwt
     return user;
   }
 }

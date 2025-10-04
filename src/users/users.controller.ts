@@ -3,7 +3,6 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PasswordRemoverInterceptor } from '@app/interceptors/password-remover.interceptor';
-import { JwtGuard } from '@app/auth/guards/jwt.guard';
 import { AuthGuard } from '@nestjs/passport';
 import { LoggedInDto } from '@app/auth/dto/logged-in.dto';
 
@@ -12,13 +11,13 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto) { //ดึงข้อมูลจาก body คำข้อข้อง http
     return this.usersService.create(createUserDto);
   }
 
 
 
-  @UseGuards(AuthGuard('jwt')) // jwt defaultname ใน passsport
+  @UseGuards(AuthGuard('jwt')) // jwt  ใน passsport
   @UseInterceptors(PasswordRemoverInterceptor)
   @Get('me')
   findByUsername(@Req() req: { user: LoggedInDto }) {

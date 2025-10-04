@@ -1,7 +1,7 @@
 import { createZodDto } from 'nestjs-zod';
 import { z } from 'zod';
 
-
+//validation
 export const createMovieReviewsSchema = z
   .object({
     name: z.string().min(1, 'name is required'),

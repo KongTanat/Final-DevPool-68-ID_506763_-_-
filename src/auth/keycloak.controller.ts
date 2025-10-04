@@ -10,36 +10,37 @@ export class KeycloakController {
 
   @Get('redirect-to-login')
   async redirectToLogin(
-    @Res({ passthrough: true }) res: Response
+    @Res({passthrough:true}) res: Response
   ) {
 
-    // return state, codeVerifier, url
     const { state, codeVerifier, url } =
       await this.keycloakService.getRedirectLoginUrl()
 
-    res.cookie('state', state) // what's req ?
-    res.cookie('codeVerifier', codeVerifier) // who're you ?
-    // res.redirect(url)  // where's keycloak ?
-    return { url } ;
+    res.cookie('state', state) 
+    res.cookie('codeVerifier', codeVerifier) 
+    
+    
+    return {url} ; // สร้าง url สำหรับหน้า login ของ keycloak ที่เป็น object
   }
 
-  @Get('login')
+  @Get('login')  
   async login(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
 
-    const state = req.cookies?.state;
+    const state = req.cookies?.state;     // ดึงค่า state และ codeverifier ผ่าน cookie
     const codeVerifier = req.cookies?.codeVerifier;
-    const url = req.originalUrl.split('?')[1] || '';
+    const url = req.originalUrl.split('?')[1] || ''; //split url  ? ตัวแบ่ง ใส่ or เพื่อป้องกัน  url ไม่มี ?
+    
 
     const { idToken, tokensDto } = await this.keycloakService.login({
       state,
       codeVerifier,
       url,
-    });
+    });    // auth  ผ่าน keycloak server เพื่อขอ idtoken , tokensDto
 
-    res.cookie('idToken', idToken)
+    res.cookie('idToken', idToken)   // ตั้งค่า cookie ใหม่
     res.cookie('refreshToken', tokensDto.refreshToken)
 
-    res.clearCookie('state')
+    res.clearCookie('state') // ล้าง cookig ชั่วคราวหลังขอ acresstoken
     res.clearCookie('codeVerifier')
 
     return { accessToken: tokensDto.accessToken };

@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import type { Response,Request } from 'express';
+import type { Response, Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 import { LoggedInDto } from './dto/logged-in.dto';
 import { KeycloakService } from './keycloak.service';
@@ -9,17 +9,17 @@ import { KeycloakService } from './keycloak.service';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService,
-    private readonly keycloakService:KeycloakService
-  ) {}
+    private readonly keycloakService: KeycloakService
+  ) { }
 
   @Post('login')
   async login(
-    @Body() loginDto: LoginDto, 
-    @Res({ passthrough: true }) res: Response
-  ) { // passthrough:true กรณัอยากเซตค่า cookie
+    @Body() loginDto: LoginDto,
+    @Res({ passthrough: true }) res: Response  //เข้าถึง res ได้โดยตรง
+  ) { // passthrough:true กรณีอยากเซตค่า cookie
     const { accessToken, refreshToken } = await this.authService.login(loginDto);
     res.cookie('refreshToken', refreshToken)
-    return { accessToken } 
+    return { accessToken } // passthrough แปลงเป็น json ให้
   }
 
   @UseGuards(AuthGuard('refresh-jwt'))
@@ -27,13 +27,14 @@ export class AuthController {
   refreshToken(@Req() req: { user: LoggedInDto }) {
     return this.authService.refreshToken(req.user);
   }
-@Post('logout')
+
+  @Post('logout')
   async logout(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response) {
     res.clearCookie('refreshToken');
 
-    const idToken = req.cookies?.idToken
+    const idToken = req.cookies?.idToken // ออกจากระบบ ของ keycloak
     if (idToken) {
       const logoutUrl = await this.keycloakService.logout(idToken)
       res.clearCookie('idToken')

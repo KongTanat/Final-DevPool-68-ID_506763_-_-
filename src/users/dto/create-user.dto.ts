@@ -3,6 +3,7 @@ import { Role } from "../entities/user.entity"
 import { createZodDto } from "nestjs-zod"
 
 //zod ทำงานก่อนข้อมูลจะถูกนำไป bussiness logic
+//validation
 export const createUserSchema = z.object({
     username : z.string().min(3,"username is required"),
     password : z.string().min(3,"username is required"),
@@ -10,4 +11,4 @@ export const createUserSchema = z.object({
 })
 
 
-export class CreateUserDto extends createZodDto (createUserSchema){}
+export class CreateUserDto extends createZodDto (createUserSchema){} //createZodDto นำ validate ที่กำหนดมาประมวลผล

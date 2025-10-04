@@ -10,5 +10,5 @@ Content-Type: application/json
 ### case: valid token
 # @ref u104
 GET http://localhost:3000/api/v1/users/me
-Authorization: Bearer {{u105.accessToken}}
+Authorization: Bearer {{u104.accessToken}}
 

@@ -13,13 +13,13 @@ export class RefreshJwtStrategy extends PassportStrategy(
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        (req: Request) => req.cookies?.refreshToken || '',  //ดึงค่าจาก token
+        (req: Request) => req.cookies?.refreshToken || '',  //ดึงค่าจาก cookie
       ]),
       secretOrKey: `${process.env.REFRESH_JWT_SECRET}`,
     });
   }
 
-  validate(user: LoggedInDto): LoggedInDto {      //อาจต้องเพิ่มการ revoked  เพื่อใช้การ logout (ค่อยทำ)
+  validate(user: LoggedInDto): LoggedInDto {      
     return { username: user.username, role: user.role };
   }
 

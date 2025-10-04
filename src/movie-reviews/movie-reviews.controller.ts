@@ -11,17 +11,17 @@ import { ScoreDto } from './dto/score.dto';
 import { ScoreService } from './score.service';
 
 @Controller('movie-reviews')
-export class MovieReviewsController {
+export class MovieReviewsController {  //inject เข้ามา
   constructor(private readonly movieReviewsService: MovieReviewsService,
     private scoreService : ScoreService
   ) { }
 
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))  // เพิ่ม movie
   @Post()
   create(
-    @Body() createMovieReviewDto: CreateMovieReviewDto,
-    @Req() req: { user: LoggedInDto }) {
+    @Body() createMovieReviewDto: CreateMovieReviewDto, // validation  นำคำขอจาก body ใส่ในตัวแปร
+    @Req() req: { user: LoggedInDto }) {  //ดีงข้อมูลผู้ใช้ระบุว่าใครสร้าง
     return this.movieReviewsService.create(createMovieReviewDto, req.user);
   }
 
@@ -45,7 +45,7 @@ export class MovieReviewsController {
     return this.movieReviewsService.update(idDto.id, updateMovieReviewDto, req.user);
   }
 
-  @HttpCode(204)
+  @HttpCode(204) //no content
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   remove(@Param() idDto: IdDto,
@@ -54,10 +54,10 @@ export class MovieReviewsController {
      this.movieReviewsService.remove(idDto.id, req.user);
   }
 
-    @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Put(':id/score')
   rating(
-    @Param() idDto: IdDto,
+    @Param() idDto: IdDto,  //validate ว่า id ต้องเป็นตัวเลข
     @Body() scoreDto: ScoreDto,
     @Req() req: { user: LoggedInDto },
   ) {

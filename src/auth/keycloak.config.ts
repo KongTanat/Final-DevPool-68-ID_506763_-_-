@@ -1,6 +1,6 @@
 import { Configuration, Value } from '@itgorillaz/configify';
 
-@Configuration()
+@Configuration() // ดึงค่าจาก .env
 export class KeycloakConfig {
 
   @Value('OAUTH2_ISSUER')

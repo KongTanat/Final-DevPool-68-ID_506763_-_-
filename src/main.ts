@@ -9,14 +9,14 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api')
 
-  app.enableVersioning({
+  app.enableVersioning({  // กำหนด version
     type: VersioningType.URI,
     defaultVersion: '1'
   })
-  app.use(cookieParser())
+  app.use(cookieParser())  // เก็บ refresh token ไว้ใน cookie
 
-  updateGlobalConfig({
-    defaultLimit:10,
+  updateGlobalConfig({ // pagination
+    defaultLimit:10,   // 10 record for 1 page
   })
 
 

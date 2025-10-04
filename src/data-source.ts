@@ -1,10 +1,10 @@
 export class DataSource {}
-// data-source.ts
+
 import { config } from 'dotenv'
 import { DataSourceOptions } from 'typeorm';
 
-config();
-
+config(); // มองหา env
+// ใช้ typeorm เข้าถึงฐานข้อมูล
 export const dataSourceOpts: DataSourceOptions = {
   type: 'postgres',
   logging: true,
