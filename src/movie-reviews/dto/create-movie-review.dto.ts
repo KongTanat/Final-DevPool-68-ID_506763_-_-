@@ -16,4 +16,5 @@ export const createMovieReviewsSchema = z
     }),
   })
   .strict();
-export class CreateMovieReviewDto {}
+  
+export class CreateMovieReviewDto extends createZodDto(createMovieReviewsSchema) {}

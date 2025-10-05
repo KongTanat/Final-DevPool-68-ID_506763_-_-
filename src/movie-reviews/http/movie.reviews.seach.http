@@ -1,6 +1,6 @@
 // food-recipes.search.http
 ### case: limit page sort
-GET http://localhost:3000/api/v1/movie-reviews?limit=3&page=2&sortBy=id
+GET http://localhost:3000/api/v1/movie-reviews?limit&page=2&sortBy=id
 Content-Type: application/json
 
 

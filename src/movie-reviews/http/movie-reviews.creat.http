@@ -19,7 +19,7 @@ Content-Type: application/json
     "year": "2019",
     "description": "Charming and heartwarming documentary about food culture and passion.",
     "rating": {
-        "id" : 3
+        "id" : 5
     }
     
   }

@@ -5,7 +5,7 @@ POST /users
 Content-Type: application/json
 
 {
-    "username": "u101",
+    "username": "u108",
     "password": "changeit",
     "role": "USER"
 }
